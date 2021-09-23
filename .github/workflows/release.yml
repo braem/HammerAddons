@@ -9,6 +9,9 @@ name: Manual Release
 jobs:
   manual_release:
     runs-on: ubuntu-latest
+    
+    env:
+      FGD_BUILD_DIR: FGD-Build
 
     steps:
       - name: Checkout
@@ -19,19 +22,23 @@ jobs:
         with:
           workflow: build.yml
           workflow_conclusion: success
+          ## push to master only! (dont grab one from a PR)
+          event: push
           
       - name: Zip Momentum Content
         uses: thedoctor0/zip-release@master
         with:
           type: 'zip'
-          path: FGD-Build/momentum
+          directory: ./${{ env.FGD_BUILD_DIR }}
+          path: momentum
           filename: 'fgd-momentum.zip'
           
       - name: Zip P2CE Content
         uses: thedoctor0/zip-release@master
         with:
           type: 'zip'
-          path: FGD-Build/p2ce
+          directory: ./${{ env.FGD_BUILD_DIR }}
+          path: p2ce
           filename: 'fgd-p2ce.zip'
           
       - name: Create Release
@@ -39,6 +46,6 @@ jobs:
         with:
           tag_name: ${{ github.event.inputs.version }}
           files: |
-            fgd-momentum.zip
-            fgd-p2ce.zip
+            ${{ env.FGD_BUILD_DIR }}/fgd-momentum.zip
+            ${{ env.FGD_BUILD_DIR }}/fgd-p2ce.zip
           fail_on_unmatched_files: true
