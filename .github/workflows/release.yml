@@ -8,30 +8,47 @@ on:
 name: Manual Release
 jobs:
   manual_release:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
+    
+    env:
+      FGD_BUILD_DIR: build
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         
-      - name: Download artifact from latest successful workflow run
-        uses: dawidd6/action-download-artifact@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
         with:
-          workflow: build.yml
-          workflow_conclusion: success
+          python-version: '3.9'
+
+      - name: Install srctools
+        run: .\install_srctools.bat
+
+      - name: FGD build and folder copy
+        run: .\build.bat all
+
+      - name: Artifact upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: build_${{ github.event.inputs.version }}-${{ github.sha }}
+          path: ./build/*
+          if-no-files-found: error
           
       - name: Zip Momentum Content
         uses: thedoctor0/zip-release@master
         with:
           type: 'zip'
-          path: FGD-Build/momentum
+          directory: ./${{ env.FGD_BUILD_DIR }}/momentum/
+          path: ./*
           filename: 'fgd-momentum.zip'
           
       - name: Zip P2CE Content
         uses: thedoctor0/zip-release@master
         with:
           type: 'zip'
-          path: FGD-Build/p2ce
+          directory: ./${{ env.FGD_BUILD_DIR }}/p2ce/
+          path: ./*
           filename: 'fgd-p2ce.zip'
           
       - name: Create Release
@@ -39,6 +56,6 @@ jobs:
         with:
           tag_name: ${{ github.event.inputs.version }}
           files: |
-            fgd-momentum.zip
-            fgd-p2ce.zip
+            ${{ env.FGD_BUILD_DIR }}/momentum/fgd-momentum.zip
+            ${{ env.FGD_BUILD_DIR }}/p2ce/fgd-p2ce.zip
           fail_on_unmatched_files: true
