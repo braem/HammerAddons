@@ -1,0 +1,44 @@
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version'
+        required: true
+
+name: Manual Release
+jobs:
+  manual_release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Download artifact from latest successful workflow run
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: build.yml
+          workflow_conclusion: success
+          
+      - name: Zip Momentum Content
+        uses: thedoctor0/zip-release@master
+        with:
+          type: 'zip'
+          path: FGD-Build/momentum
+          filename: 'fgd-momentum.zip'
+          
+      - name: Zip P2CE Content
+        uses: thedoctor0/zip-release@master
+        with:
+          type: 'zip'
+          path: FGD-Build/p2ce
+          filename: 'fgd-p2ce.zip'
+          
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.version }}
+          files: |
+            fgd-momentum.zip
+            fgd-p2ce.zip
+          fail_on_unmatched_files: true
