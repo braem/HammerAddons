@@ -1,4 +1,0 @@
-@PointClass base(BaseEntityPoint)
-= env_movieexplosion : ""
-	[
-	]

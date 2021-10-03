@@ -1,5 +1,0 @@
-@SolidClass base(BaseTank) 
-= func_tankphyscannister: "PhysCannister Turret"
-	[
-	barrel_volume(target_destination) : "Barrel Volume" : : "Name of a trigger the specifies the volume in which cannisters must be placed."
-	]

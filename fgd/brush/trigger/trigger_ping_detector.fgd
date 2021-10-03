@@ -1,9 +1,0 @@
-@SolidClass base(Trigger) 
-	appliesto(P2CE) 
-= trigger_ping_detector: "Detects whether a player has pinged in its region."
-	[
-
-	// Outputs
-	output OnOrangePlayerPinged(void) : "Fired when P-Body has pinged inside the trigger."
-	output OnBluePlayerPinged(void) : "Fired when ATLAS has pinged inside the trigger."
-	]

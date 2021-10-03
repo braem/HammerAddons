@@ -1,5 +1,0 @@
-@SolidClass base(BaseTank) 
-= func_tankrocket: "Brush Rocket Turret"
-	[
-	rocketspeed(float) : "Projectile speed" : 800 : "Speed the rocket will travel at."
-	]

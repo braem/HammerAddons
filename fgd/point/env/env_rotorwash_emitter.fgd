@@ -1,7 +1,0 @@
-@PointClass base(BaseEntityPoint)
-	appliesto(+HL2_ENTITIES)
-	iconsprite("editor/env_rotorwash_emitter")
-= env_rotorwash_emitter: "Creates rotorwash."
-	[
-	altitude(float) : "Altitude (Unused)" : 1024 : "Altitude the rotorwash will show up. This is defined in the entity, but isn't actually used for anything."
-	]

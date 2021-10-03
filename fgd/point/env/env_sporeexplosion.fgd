@@ -1,6 +1,0 @@
-@PointClass base(BaseEntityPoint, EnableDisable)
-	iconsprite("editor/ficool2/env_sporeexplosion.vmt")
-= env_sporeexplosion: "Bugbait Spore Effect"
-	[
-	spawnrate(float) : "Spawn Rate (as percentage)" : 25 : "How dense the spore effect is"
-	]

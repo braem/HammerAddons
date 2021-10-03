@@ -1,5 +1,0 @@
-@SolidClass base(BaseTank) 
-= func_tankairboatgun: "Airboat Gun Turret"
-	[
-	airboat_gun_model(target_destination) : "Name of a prop_dynamic which is the airboat gun model"
-	]

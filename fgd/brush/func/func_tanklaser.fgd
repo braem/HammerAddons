@@ -1,5 +1,0 @@
-@SolidClass base(BaseTank) 
-= func_tanklaser: "Brush Laser Turret"
-	[
-	laserentity(target_destination) : "env_laser Entity"
-	]

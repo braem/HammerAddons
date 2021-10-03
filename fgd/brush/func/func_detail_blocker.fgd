@@ -1,5 +1,0 @@
-@SolidClass appliesto(-engine) 
-= func_detail_blocker: 
-	"A brush entity that prevents detail sprites from being placed inside its volume."
-	[
-	]
